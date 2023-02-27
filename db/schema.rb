@@ -18,10 +18,10 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_27_125531) do
     t.string "name"
     t.text "description"
     t.integer "price"
-    t.bigint "users_id", null: false
+    t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["users_id"], name: "index_planets_on_users_id"
+    t.index ["user_id"], name: "index_planets_on_user_id"
   end
 
   create_table "reservations", force: :cascade do |t|
@@ -47,7 +47,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_27_125531) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
-  add_foreign_key "planets", "users", column: "users_id"
+  add_foreign_key "planets", "users"
   add_foreign_key "reservations", "planets"
   add_foreign_key "reservations", "users"
 end
