@@ -1,5 +1,6 @@
 class PlanetsController < ApplicationController
   skip_before_action :authenticate_user!, only: %i[index show]
+  before_action :set_planet, only: %i[show edit update destroy]
 
   def index
     @planets = Planet.all
@@ -13,38 +14,36 @@ class PlanetsController < ApplicationController
     @planet = Planet.new(planet_params)
     @planet.user = current_user
     if @planet.save
-      redirect_to planets_path
+      redirect_to planet_path(@planet)
     else
       render :new, status: :unprocessable_entity
     end
   end
 
-  def show
-    @planet = Planet.find(params[:id])
-  end
+  def show; end
 
-  def edit
-    @planet = Planet.find(params[:id])
-  end
+  def edit; end
 
   def update
-    @planet = Planet.find(params[:id])
     if @planet.update(planet_params)
-      redirect_to planets_path
+      redirect_to planet_path(@planet)
     else
-      render :edit, status: :unprocessable_entity
+      render :show, status: :unprocessable_entity
     end
   end
 
   def destroy
-    @planet = Planet.find(params[:id])
     @planet.destroy
     redirect_to planets_path
   end
 
   private
 
+  def set_planet
+    @planet = Planet.find(params[:id])
+  end
+
   def planet_params
-    params.require(:planet).permit(:name, :description, :price_per_night, :photo)
+    params.require(:planet).permit(:name, :description, :price_per_night, :population, :planet_type, :photo)
   end
 end
