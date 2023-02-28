@@ -47,7 +47,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_27_174501) do
     t.text "description"
     t.integer "price_per_night"
     t.integer "rating"
-    t.string "picture_url"
+    t.integer "population"
+    t.string "planet_type"
     t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
