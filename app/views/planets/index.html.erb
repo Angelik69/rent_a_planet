@@ -1,2 +1,48 @@
 <h1>The planets</h1>
 
+
+=======
+<%= cl_image_tag Planet.last.photo.key, height: 300, width: 400, crop: :fill %>
+<ul>
+  <% @planets.each do |planet| %>
+    <li><%= planet.name %></li>
+  <% end %>
+</ul>
+
+<div class="cards">
+  <% @planets.each do |planet| %>
+
+    <div class="card">
+      <img class="card-img" src="https://upload.wikimedia.org/wikipedia/commons/c/cb/The_Blue_Marble_%28remastered%29.jpg">
+      <div class="card-products">
+
+        <div class="card-infos">
+            <p class="planet-name">planet name</p>
+            <p class="day">à partire de</p>
+          <div class="sub-infos">
+            <p class="price">75</p>
+            <p class="€">€</p>
+            <p class="per-day">/nuit</p>
+          </div>
+        </div>
+        <div class="stars-btn">
+          <div  class="stars">
+            <ul>
+              <li><ion-icon name="star-outline"></ion-icon></li>
+              <li><ion-icon name="star-outline"></ion-icon></li>
+              <li><ion-icon name="star-outline"></ion-icon></li>
+              <li><ion-icon name="star-outline"></ion-icon></li>
+              <li><ion-icon name="star-outline"></ion-icon></li>
+            </ul>
+          </div>
+          <div class="card-btn">
+          <p>Réserver</p>
+          </div></div>
+      </div>
+    </div>
+
+
+
+  <% end %>
+</div>
+
