@@ -5,7 +5,8 @@ class CreatePlanets < ActiveRecord::Migration[7.0]
       t.text :description
       t.integer :price_per_night
       t.integer :rating
-      t.string :picture_url
+      t.integer :population
+      t.string :planet_type
       t.references :user, null: false, foreign_key: true
 
       t.timestamps

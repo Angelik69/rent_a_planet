@@ -20,7 +20,9 @@ PLANETS = [
   'nasa-ScBkW9AKgcA-unsplash_hggply.jpg',
   'nasa-2W-QWAC0mzI-unsplash_ew0g74.jpg'
 ]
-NAME = %w[star constellation planet galaxy]
+
+TYPE = ['Rocheuse', 'Tellurique', 'Naine', 'Oceanique']
+
 SUFFIX = %w[I II III IV V VI VII VIII IX X XI XII XIII XIV XV XVI XVII XVIII XIX XX]
 
 print "Seeding Users..."
@@ -37,14 +39,17 @@ puts "OK ! (user1@gmail.com -> user10@gmail.com, password = 'password' partout)"
 print "Seeding Planets..."
 
 10.times {
+  file = URI.open("https://res.cloudinary.com/dx1sso7tq/image/upload/v1677577268/#{PLANETS.sample}")
   planet = Planet.new(
     name: Faker::Space.star + ' ' + SUFFIX.sample,
+    planet_type: TYPE.sample,
     description: Faker::Lorem.paragraphs(number: 5),
     price_per_night: Faker::Number.between(from: 25, to: 2000),
     rating: Faker::Number.between(from: 1, to: 5),
     user_id: Faker::Number.between(from: 1, to: 10),
-    picture_url: "https://res.cloudinary.com/dx1sso7tq/image/upload/w_1000,c_fill,ar_1:1,g_auto,r_max,bo_5px_solid_red,b_rgb:262c35/v1677577268/#{PLANETS.sample}"
+    population: Faker::Number.between(from: 200_000, to: 950_000)
   )
+  planet.photo.attach(io: file, filename: "nes.png", content_type: "image/png")
   planet.save!
 }
 
