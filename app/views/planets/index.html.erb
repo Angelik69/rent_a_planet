@@ -3,14 +3,10 @@
 <div class="cards">
   <% @planets.each do |planet| %>
 <style>
-body{
-  background-color: #02021e;
-}
 </style>
     <div class="container">
       <img class="card-img" src= "<% planet.picture_url %>">
       <div class="card-products">
-
         <div class="card-infos">
             <p class="planet-name"><% planet.name %> </p>
             <p class="day">à partire de</p>
@@ -35,9 +31,6 @@ body{
           </div></div>
       </div>
     </div>
-
-
-
   <% end %>
 </div>
 
