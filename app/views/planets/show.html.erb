@@ -1,2 +1,40 @@
-<h1><%= @planet.name %></h1>
-<p><%= @planet.description %></p>
+<div class="container">
+  <div class="row">
+    <div class="col-8">
+      <div class="card rounded-3 w-100">
+        <img src="https://source.unsplash.com/random/800x400" class="card-img-top roun" alt="...">
+        <div class="card-body p-4">
+          <div class="d-flex justify-content-between pb-3">
+              <h5 class="card-title"><%= @planet.name %></h5>
+              <p><%= @planet.price_per_night %>€<span>/nuit</span></p>
+          </div>
+          <div class="d-flex justify-content-start pb-3">
+            <div class="pe-5">
+              <h6 class="card-title">Note</h6>
+              <div class="stars">
+                <ul class="list-group list-group-horizontal">
+                  <li class="list-group-item p-0 border-0"><ion-icon name="star"></ion-icon></li>
+                  <li class="list-group-item p-0 border-0"><ion-icon name="star"></ion-icon></li>
+                  <li class="list-group-item p-0 border-0"><ion-icon name="star"></ion-icon></li>
+                  <li class="list-group-item p-0 border-0"><ion-icon name="star-half"></ion-icon></li>
+                  <li class="list-group-item p-0 border-0"><ion-icon name="star-outline"></ion-icon></li>
+                </ul>
+              </div>
+            </div>
+            <div class="pe-5">
+              <h6 class="card-title">Type</h6>
+              <p class="card-title">Gazeuse</p>
+            </div>
+            <div>
+              <h6 class="card-title">Population</h6>
+              <p class="card-title">50M</p>
+            </div>
+          </div>
+          <p><%= @planet.description %></p>
+        </div>
+      </div>
+    </div>
+    <div class="col-4">
+    </div>
+  </div>
+</div>
