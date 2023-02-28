@@ -21,7 +21,7 @@ PLANETS = [
   'nasa-2W-QWAC0mzI-unsplash_ew0g74.jpg'
 ]
 
-TYPE = ['Rocheuse', 'Tellurique', 'Naine', 'Oceanique']
+TYPE = %w[rocheuse tellurique gazeuse oceanique]
 
 SUFFIX = %w[I II III IV V VI VII VIII IX X XI XII XIII XIV XV XVI XVII XVIII XIX XX]
 
@@ -38,7 +38,7 @@ puts "OK ! (user1@gmail.com -> user10@gmail.com, password = 'password' partout)"
 
 print "Seeding Planets..."
 
-10.times {
+15.times {
   file = URI.open("https://res.cloudinary.com/dx1sso7tq/image/upload/v1677577268/#{PLANETS.sample}")
   planet = Planet.new(
     name: Faker::Space.star + ' ' + SUFFIX.sample,

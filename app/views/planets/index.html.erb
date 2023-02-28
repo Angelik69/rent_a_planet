@@ -4,13 +4,13 @@
 <style>
 </style>
     <div class="container">
-      <img class="card-img" src= "<% planet.picture_url %>">
+      <%= cl_image_tag planet.photo.key, height: 200, width: 200, crop: :fill, class: 'card-img' %>
       <div class="card-products">
         <div class="card-infos">
-            <p class="planet-name"><% planet.name %> </p>
-            <p class="day">à partire de</p>
+            <p class="planet-name"><%= planet.name %> </p>
+            <p class="day">à partir de</p>
           <div class="sub-infos">
-            <p class="price"><% planet.price_per_night %></p>
+            <p class="price"><%= planet.price_per_night %></p>
             <p class="€">€</p>
             <p class="per-day">/nuit</p>
           </div>
@@ -32,4 +32,3 @@
     </div>
   <% end %>
 </div>
-
