@@ -1,7 +1,8 @@
 class Planet < ApplicationRecord
   belongs_to :user
   has_many :reservations
+
   validates :name, uniqueness: true, presence: true
   validates :description, presence: true
-  validates :price, presence: true
+  validates :price_per_night, presence: true
 end
