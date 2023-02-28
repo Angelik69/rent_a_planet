@@ -1,4 +1,9 @@
-div.card{
+.cards{
+  display: grid;
+  grid-template-columns: auto;
+}
+
+div.container{
   width: 500px;
   height: 450px;
   position: absolute;
