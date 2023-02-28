@@ -45,8 +45,11 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_27_174501) do
   create_table "planets", force: :cascade do |t|
     t.string "name"
     t.text "description"
-    t.integer "price"
-    t.bigint "users_id", null: false
+    t.integer "price_per_night"
+    t.integer "rating"
+    t.integer "population"
+    t.string "planet_type"
+    t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["users_id"], name: "index_planets_on_users_id"
