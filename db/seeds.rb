@@ -10,15 +10,15 @@ require 'faker'
 require 'open-uri'
 
 PLANETS = [
-  'javier-miranda-Jn2EaLLYZfY-unsplash_qreutx.jpg',
-  'simon-lee-XnGxTBij48Q-unsplash_sh5fjn.jpg',
-  'nasa-vhSz50AaFAs-unsplash_ywgdn6.jpg',
-  'nasa-N3BQHYOVq5E-unsplash_sknojo.jpg',
-  'andrew-russian-UuVkBMbNSlM-unsplash_n2f4oh.jpg',
-  'neven-krcmarek-9dTg44Qhx1Q-unsplash_w3hqlt.jpg',
-  'planet-volumes-awYEQyYdHVE-unsplash_z09hdg.jpg',
-  'nasa-ScBkW9AKgcA-unsplash_hggply.jpg',
-  'nasa-2W-QWAC0mzI-unsplash_ew0g74.jpg'
+  'v1677679375/terre_qptt3p.jpg',
+  'v1677679375/sun_w4lqjb.jpg',
+  'v1677679375/uranus_iphcpn.jpg',
+  'v1677679374/saturne_ur63za.jpg',
+  'v1677679374/jupiter_ko6yln.jpg',
+  'v1677679374/neptune_tsq3wo.jpg',
+  'v1677679374/mars_ohgpww.jpg',
+  'v1677679374/mercure_nuwnfw.jpg',
+  'v1677679374/lune_piu1pu.jpg'
 ]
 
 TYPE = %w[rocheuse tellurique gazeuse oceanique]
@@ -39,7 +39,7 @@ puts "OK ! (user1@gmail.com -> user10@gmail.com, password = 'password' partout)"
 print "Seeding Planets..."
 
 15.times {
-  file = URI.open("https://res.cloudinary.com/dx1sso7tq/image/upload/v1677577268/#{PLANETS.sample}")
+  file = URI.open("https://res.cloudinary.com/dx1sso7tq/image/upload/#{PLANETS.sample}")
   planet = Planet.new(
     name: Faker::Space.star + ' ' + SUFFIX.sample,
     planet_type: TYPE.sample,
@@ -49,7 +49,7 @@ print "Seeding Planets..."
     user_id: Faker::Number.between(from: 1, to: 10),
     population: Faker::Number.between(from: 200_000, to: 950_000)
   )
-  planet.photo.attach(io: file, filename: "nes.png", content_type: "image/png")
+  planet.photo.attach(io: file, filename: "photo.jpg", content_type: "image/jpg")
   planet.save!
 }
 

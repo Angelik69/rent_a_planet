@@ -1,33 +1,35 @@
-<h1>The planets</h1>
-<div class="cards">
-  <% @planets.each do |planet| %>
-    <div class="card-entiere">
-      <%= cl_image_tag planet.photo.key, height: 200, width: 200, crop: :fill, class: 'card-img' %>
-      <div class="card-products">
-        <div class="card-infos">
-            <p class="planet-name"><%= planet.name %></p>
-            <p class="day">à partir de</p>
-          <div class="sub-infos">
-            <p class="price"><%= planet.price_per_night %></p>
-            <p class="€">€</p>
-            <p class="per-day">/nuit</p>
+<div class="container">
+  <h1>The planets</h1>
+  <div class="cards">
+    <% @planets.each do |planet| %>
+      <div class="card-entiere">
+        <%= cl_image_tag planet.photo.key, height: 200, width: 200, crop: :fill, class: 'card-img' %>
+        <div class="card-products">
+          <div class="card-infos">
+              <p class="planet-name"><%= planet.name %></p>
+              <p class="day">à partir de</p>
+            <div class="sub-infos">
+              <p class="price"><%= planet.price_per_night %></p>
+              <p class="€">€</p>
+              <p class="per-day">/nuit</p>
+            </div>
           </div>
+          <div class="stars-btn">
+            <div  class="stars">
+              <ul>
+                <li><ion-icon name="star-outline"></ion-icon></li>
+                <li><ion-icon name="star-outline"></ion-icon></li>
+                <li><ion-icon name="star-outline"></ion-icon></li>
+                <li><ion-icon name="star-outline"></ion-icon></li>
+                <li><ion-icon name="star-outline"></ion-icon></li>
+              </ul>
+            </div>
+            <div class="card-btn">
+            <%= link_to "Réserver", planet %>
+            </div>
+            </div>
         </div>
-        <div class="stars-btn">
-          <div  class="stars">
-            <ul>
-              <li><ion-icon name="star-outline"></ion-icon></li>
-              <li><ion-icon name="star-outline"></ion-icon></li>
-              <li><ion-icon name="star-outline"></ion-icon></li>
-              <li><ion-icon name="star-outline"></ion-icon></li>
-              <li><ion-icon name="star-outline"></ion-icon></li>
-            </ul>
-          </div>
-          <div class="card-btn">
-          <%= link_to "Réserver", planet %>
-          </div>
-          </div>
       </div>
-    </div>
-  <% end %>
+    <% end %>
+  </div>
 </div>
