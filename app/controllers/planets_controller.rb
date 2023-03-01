@@ -37,6 +37,10 @@ class PlanetsController < ApplicationController
     redirect_to planets_path
   end
 
+  def user
+    @planets = Planet.where(user: current_user)
+  end
+
   private
 
   def set_planet
