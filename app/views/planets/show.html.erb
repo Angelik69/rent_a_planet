@@ -1,32 +1,35 @@
-<div class="container mt-3">
+<div class="container my-5">
   <div class="row">
     <div class="col-8">
-      <div class="card rounded-3 w-100">
+      <div class="card border-0 rounded w-100">
         <img src="https://source.unsplash.com/random/800x400" class="card-img-top" alt="...">
-        <div class="card-body p-4">
-          <div class="d-flex justify-content-between pb-3">
-              <h5 class="card-title"><%= @planet.name %></h5>
-              <p><%= @planet.price_per_night %>€<span>/nuit</span></p>
+        <div class="card-body p-5">
+          <div class="d-flex justify-content-between align-items-end margin-custom">
+              <h5 class="card-title mb-0"><%= @planet.name %></h5>
+              <div>
+                <p class="little">à partir de</p>
+                <h4 class="mb-0"><%= @planet.price_per_night %>€ <span class="little-plus">/nuit</span></p>
+              </div>
           </div>
           <div class="d-flex justify-content-start pb-3">
             <div class="pe-5">
-              <h6 class="card-title">Note</h6>
+              <h6 class="card-title mb-3">Note</h6>
               <div class="stars">
-                <ul class="list-group list-group-horizontal">
-                  <li class="list-group-item p-0 border-0"><ion-icon name="star"></ion-icon></li>
-                  <li class="list-group-item p-0 border-0"><ion-icon name="star"></ion-icon></li>
-                  <li class="list-group-item p-0 border-0"><ion-icon name="star"></ion-icon></li>
-                  <li class="list-group-item p-0 border-0"><ion-icon name="star-half"></ion-icon></li>
-                  <li class="list-group-item p-0 border-0"><ion-icon name="star-outline"></ion-icon></li>
+                <ul class="list-group list-group-horizontal padding-custom">
+                  <li class="list-group-item p-0 border-0"><ion-icon name="star" class="star-color"></ion-icon></li>
+                  <li class="list-group-item p-0 border-0"><ion-icon name="star" class="star-color"></ion-icon></li>
+                  <li class="list-group-item p-0 border-0"><ion-icon name="star" class="star-color"></ion-icon></li>
+                  <li class="list-group-item p-0 border-0"><ion-icon name="star-half" class="star-color"></ion-icon></li>
+                  <li class="list-group-item p-0 border-0"><ion-icon name="star-outline" class="star-color"></ion-icon></li>
                 </ul>
               </div>
             </div>
             <div class="pe-5">
-              <h6 class="card-title">Type</h6>
+              <h6 class="card-title mb-3">Type</h6>
               <p class="card-title">Gazeuse</p>
             </div>
             <div>
-              <h6 class="card-title">Population</h6>
+              <h6 class="card-title mb-3">Population</h6>
               <p class="card-title">50M</p>
             </div>
           </div>
@@ -35,9 +38,9 @@
       </div>
     </div>
     <div class="col-4">
-      <div class="card rounded-3 w-100">
+      <div class="card rounded w-100">
         <div class="card-body p-4">
-          <h3 class="card-title pb-3">Réservation</h3>
+          <h6 class="card-title pb-3">Réservation</h6>
           <div class="d-flex pb-3" data-controller="calendar">
             <div class="me-2 w-50">
               <label for="startingDate" class="mb-1">Date de début</label>
@@ -74,21 +77,21 @@
             </select>
           </div>
           <div class="d-grid gap-2 pb-4">
-            <button class="btn btn-primary rounded" type="button">Réserver</button>
+            <button class="btn btn-booking py-2 rounded fw-bolder" type="button">Réserver</button>
           </div>
           <div class="w-100">
             <div class="d-flex justify-content-between">
               <p class="mb-1"><%= @planet.price_per_night %>€ x 12 nuits</p>
-              <p class="mb-1"><%= @rent_price = @planet.price_per_night * 12 %>€</p>
+              <p class="mb-1"><%= number_with_delimiter(@rent_price = @planet.price_per_night * 12, :delimiter => ' ') %> €</p>
             </div>
             <div class="d-flex justify-content-between">
               <p class="mb-0">Frais de services</p>
-              <p class="mb-0"><%= @fees = @planet.price_per_night * 1500 %>€</p>
+              <p class="mb-0"><%= number_with_delimiter(@fees = @planet.price_per_night * 1500, :delimiter => ' ') %> €</p>
             </div>
-            <hr class="hr"/>
+            <hr class="hr color"/>
             <div class="d-flex justify-content-between">
               <p class="fw-bolder mb-0">Total</p>
-              <p class="fw-bolder mb-0"><%= @fees = @planet.price_per_night * 1500 %>€</p>
+              <p class="fw-bolder mb-0"><%= number_with_delimiter(@total = @fees + @rent_price, :delimiter => ' ') %> €</p>
             </div>
           </div>
         </div>
