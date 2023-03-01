@@ -8,11 +8,12 @@
               <h3 class="card-title"><%= planet.name %></h5>
               <div class="stars">
                 <ul class="list-group list-group-horizontal pt-0">
-                  <li class="list-group-item p-0 border-0"><ion-icon name="star" class="star-color"></ion-icon></li>
-                  <li class="list-group-item p-0 border-0"><ion-icon name="star" class="star-color"></ion-icon></li>
-                  <li class="list-group-item p-0 border-0"><ion-icon name="star" class="star-color"></ion-icon></li>
-                  <li class="list-group-item p-0 border-0"><ion-icon name="star-half" class="star-color"></ion-icon></li>
-                  <li class="list-group-item p-0 border-0"><ion-icon name="star-outline" class="star-color"></ion-icon></li>
+                  <% planet.rating.times do %>
+                    <li class="list-group-item p-0 border-0"><ion-icon name="star"></ion-icon></li>
+                  <% end %>
+                  <% (5 - planet.rating).times do %>
+                    <li class="list-group-item p-0 border-0"><ion-icon name="star-outline"></ion-icon></li>
+                  <% end %>
                 </ul>
               </div>
           </div>

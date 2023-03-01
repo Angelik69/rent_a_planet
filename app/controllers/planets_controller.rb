@@ -34,7 +34,7 @@ class PlanetsController < ApplicationController
 
   def destroy
     @planet.destroy
-    redirect_to planets_path
+    redirect_to planets_path, status: :see_other
   end
 
   def user
