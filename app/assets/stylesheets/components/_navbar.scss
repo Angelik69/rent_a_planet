@@ -13,6 +13,11 @@
 
 .nav-link {
   color: #02021e;
+  font-weight: 700;
+}
+
+.nav-item {
+  padding-right: 16px;
 }
 
 .nav-item-planet {
@@ -20,8 +25,12 @@
   padding-left: 15px;
 }
 
-.nav-item-add button {
+.nav-item-add {
   background-color: #02021e;
+}
+
+.nav-item-add .nav-link {
+  font-weight: 400;
 }
 
 

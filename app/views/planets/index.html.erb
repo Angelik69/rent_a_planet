@@ -1,33 +1,34 @@
-<h1>The planets</h1>
-<div class="cards">
-  <% @planets.each do |planet| %>
-    <div class="card-entiere">
-      <%= cl_image_tag planet.photo.key, height: 200, width: 200, crop: :fill, class: 'card-img' %>
-      <div class="card-products">
-        <div class="card-infos">
-            <p class="planet-name"><%= planet.name %></p>
-            <p class="day">à partir de</p>
-          <div class="sub-infos">
-            <p class="price"><%= planet.price_per_night %></p>
-            <p class="€">€</p>
-            <p class="per-day">/nuit</p>
+<div class="container mt-5">
+  <div class="cards">
+    <% @planets.each do |planet| %>
+      <div class="card border-0 rounded w-100">
+        <img src="https://source.unsplash.com/random/800x400" class="card-img-top" alt="...">
+        <div class="card-body p-4">
+          <div class="d-flex justify-content-between align-items-baseline pb-3">
+              <h3 class="card-title"><%= planet.name %></h5>
+              <div class="stars">
+                <ul class="list-group list-group-horizontal pt-0">
+                  <li class="list-group-item p-0 border-0"><ion-icon name="star" class="star-color"></ion-icon></li>
+                  <li class="list-group-item p-0 border-0"><ion-icon name="star" class="star-color"></ion-icon></li>
+                  <li class="list-group-item p-0 border-0"><ion-icon name="star" class="star-color"></ion-icon></li>
+                  <li class="list-group-item p-0 border-0"><ion-icon name="star-half" class="star-color"></ion-icon></li>
+                  <li class="list-group-item p-0 border-0"><ion-icon name="star-outline" class="star-color"></ion-icon></li>
+                </ul>
+              </div>
+          </div>
+          <div class="d-flex justify-content-between align-items-end">
+            <div>
+              <p class="little">à partir de</p>
+              <h4 class="mb-0"><%= planet.price_per_night %>€ <span class="little-plus">/nuit</span></p>
+            </div>
+            <div>
+              <button type="button" class="btn btn-booking d-flex align-items-center border-0 rounded">
+                <%= link_to "Réserver", planet, class: "nav-link text-light" %>
+              </button>
+            </div>
           </div>
         </div>
-        <div class="stars-btn">
-          <div  class="stars">
-            <ul>
-              <li><ion-icon name="star-outline"></ion-icon></li>
-              <li><ion-icon name="star-outline"></ion-icon></li>
-              <li><ion-icon name="star-outline"></ion-icon></li>
-              <li><ion-icon name="star-outline"></ion-icon></li>
-              <li><ion-icon name="star-outline"></ion-icon></li>
-            </ul>
-          </div>
-          <div class="card-btn">
-          <%= link_to "Réserver", planet %>
-          </div>
-          </div>
       </div>
-    </div>
-  <% end %>
+    <% end %>
+  </div>
 </div>
