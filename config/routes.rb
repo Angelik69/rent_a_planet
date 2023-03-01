@@ -5,6 +5,9 @@ Rails.application.routes.draw do
     collection do
       get :user
     end
+    member do
+      get :calendar
+    end
     resources :reservations, only: :create
   end
 
