@@ -2,10 +2,14 @@
   <div class="cards">
     <% @planets.each do |planet| %>
       <div class="card border-0 rounded w-100">
+        <%= link_to planet_path(planet) do %>
         <%= cl_image_tag planet.photo.key, crop: :scale, class: 'card-img-top' %>
+        <% end %>
         <div class="card-body p-4">
           <div class="d-flex justify-content-between align-items-baseline pb-3">
+          <%= link_to planet_path(planet) do %>
               <h3 class="card-title"><%= planet.name %></h5>
+               <% end %>
               <div class="stars">
                 <ul class="list-group list-group-horizontal pt-0">
                   <li class="list-group-item p-0 border-0"><ion-icon name="star" class="star-color"></ion-icon></li>
