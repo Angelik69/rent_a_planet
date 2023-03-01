@@ -2,13 +2,13 @@
   <div class="row">
     <div class="col-8">
       <div class="card border-0 rounded w-100">
-        <img src="https://source.unsplash.com/random/800x400" class="card-img-top" alt="...">
+        <%= cl_image_tag @planet.photo.key, crop: :scale, class: 'card-img-top' %>
         <div class="card-body p-5">
           <div class="d-flex justify-content-between align-items-end margin-custom">
               <h5 class="card-title mb-0"><%= @planet.name %></h5>
               <div>
                 <p class="little">à partir de</p>
-                <h4 class="mb-0"><%= @planet.price_per_night %>€ <span class="little-plus">/nuit</span></p>
+                <h4 class="mb-0"><%= number_with_delimiter(@planet.price_per_night, :delimiter => ' ') %>€ <span class="little-plus">/nuit</span></p>
               </div>
           </div>
           <div class="d-flex justify-content-start pb-3">
