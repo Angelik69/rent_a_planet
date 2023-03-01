@@ -1,22 +1,32 @@
 .cards{
   display: grid;
-  grid-template-columns: auto;
-  box-shadow: rgba(230, 230, 230, 0.733) 0px 14px 28px, rgba(236, 236, 236, 0.667) 0px 10px 10px;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-gap: 10px;
+  justify-items: center;
 }
 
-div.container{
+div.card-entiere{
   width: 500px;
   height: 450px;
-  position: absolute;
   border-radius: 16px;
   display: grid;
   background-color: #eeeeee;
+  padding: 0;
+  box-shadow: rgba(255, 255, 255, 0.079) 0px 5px 10px 2px;
+  border: solid black -1px;
+  margin-bottom: 30px;
+
 }
 
 .card-products{
 display: flex;
 justify-content: space-between;
 flex-direction: row;
+}
+
+.card-btn a{
+  text-decoration: none;
+  color: white;
 }
 
 
