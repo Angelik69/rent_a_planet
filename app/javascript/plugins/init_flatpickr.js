@@ -1,15 +1,11 @@
 import flatpickr from "flatpickr"
 
-console.log('hello');
+// console.log('hello');
 
 const initFlatpickr = () => {
-
-
-
   const startDateInput = document.getElementById('reservation_start_date');
   const endDateInput = document.getElementById('reservation_end_date');
 
-  // Check that the query selector id matches the one you put around your form.
   if (startDateInput) {
   const unavailableDates = JSON.parse(document.querySelector('#planet-reservation-dates').dataset.unavailable)
   endDateInput.disabled = true
@@ -20,7 +16,7 @@ const initFlatpickr = () => {
     dateFormat: "Y-m-d",
   });
 
-  console.log('Coucou');
+  // console.log('Coucou');
 
   startDateInput.addEventListener("change", (e) => {
     if (startDateInput != "") {
