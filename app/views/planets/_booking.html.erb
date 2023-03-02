@@ -1,31 +1,34 @@
 <div class="card rounded w-100 " id='planet-reservation-dates' data-unavailable="<%= @planet.unavailable_dates.to_json %>">
-    <div class="card-body p-4">
+    <div class="card-body p-4" data-controller='price'>
       <h6 class="card-title pb-3">Réservation</h6>
       <% if current_user.id != @planet.user_id  %>
         <%= simple_form_for([@planet, @reservation]) do |f| %>
-            <div class='d-flex pb-3'>
-                <%= f.input :start_date, as: :string, type: :text %>
-                <%= f.input :end_date, as: :string, type: :text %>
+            <div class='d-flex justify-content-between pb-3'>
+                <%= f.input :start_date, label: 'Début', as: :string, type: :text,
+                  input_html: { 'data-price-target' => 'start', 'data-action' => 'input->price#change' } %>
+                <%= f.input :end_date, label: 'Fin', as: :string, type: :text,
+                  input_html: { 'data-price-target' => 'end', 'data-action' => 'input->price#change' } %>
             </div>
-            <%= f.input :nb_persons %>
+            <%= f.input :nb_persons, label: 'Nombre de personnes', collection: 1..20 %>
             <div class="d-grid gap-2 pb-4">
-              <%= f.submit "Réserver", class: "btn btn-booking py-2 rounded fw-bolder" %>
+              <%= f.submit "Réserver", class: "btn btn-booking py-2 rounded fw-bolder mt-3" %>
             </div>
           <% end %>
       <% end %>
           <div class="w-100">
+            <div class="d-none" data-price-target='nightPrice'><%= @planet.price_per_night %></div>
             <div class="d-flex justify-content-between">
-              <p class="mb-1"><%= @planet.price_per_night %>€ x 12 nuits</p>
-              <p class="mb-1"><%= number_with_delimiter(@rent_price = @planet.price_per_night * 12, :delimiter => ' ') %> €</p>
+              <p class="mb-1">Nombre de nuits : <span class='fw-bold' data-price-target='nights'>0</span></p>
+              <p class="mb-1"><span data-price-target='stayPrice'>0</span> €</p>
             </div>
             <div class="d-flex justify-content-between">
-              <p class="mb-0">Frais de services</p>
-              <p class="mb-0"><%= number_with_delimiter(@fees = @planet.price_per_night * 1500, :delimiter => ' ') %> €</p>
+              <p class="mb-0">Frais de ménage</p>
+              <p class="mb-0">150 000 €</p>
             </div>
             <hr class="hr color"/>
             <div class="d-flex justify-content-between">
               <p class="fw-bolder mb-0">Total</p>
-              <p class="fw-bolder mb-0"><%= number_with_delimiter(@total = @fees + @rent_price, :delimiter => ' ') %> €</p>
+              <p class="fw-bolder mb-0"><span data-price-target='totalPrice'>0</span> €</p>
             </div>
           </div>
     </div>

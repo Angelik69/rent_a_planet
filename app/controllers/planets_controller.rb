@@ -1,12 +1,16 @@
 require 'date'
 
 class PlanetsController < ApplicationController
-  skip_before_action :authenticate_user!, only: %i[index]
+  skip_before_action :authenticate_user!, only: %i[landing]
   before_action :set_planet, only: %i[show edit update destroy]
 
   def index
     @planets = Planet.all
     @planets = @planets.reject { |planet| planet.user == current_user } if user_signed_in?
+  end
+
+  def landing
+
   end
 
   def new
@@ -59,10 +63,6 @@ class PlanetsController < ApplicationController
         end
       end
     end
-  end
-
-  def calendar
-
   end
 
   private

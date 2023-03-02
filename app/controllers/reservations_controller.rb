@@ -8,7 +8,7 @@ class ReservationsController < ApplicationController
     if @reservation.save
       redirect_to user_planets_path
     else
-      render 'planets/show', planet: @planet, status: :unprocessable_entity
+      render 'planets/show', status: :unprocessable_entity
     end
   end
 
@@ -22,7 +22,3 @@ class ReservationsController < ApplicationController
     params.require(:reservation).permit(:start_date, :end_date, :nb_persons)
   end
 end
-
-# start_date: params[:reservation][:start_date].to_date,
-# end_date: params[:reservation][:end_date].to_date,
-# nb_persons: params[:reservation][:nb_persons]
