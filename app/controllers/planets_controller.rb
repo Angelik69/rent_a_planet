@@ -5,6 +5,8 @@ class PlanetsController < ApplicationController
   def index
     @planets = Planet.all
   end
+  def landing
+  end
 
   def new
     @planet = Planet.new
