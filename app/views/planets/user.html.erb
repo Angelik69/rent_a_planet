@@ -1,44 +1,183 @@
 <div class="container mt-5">
-  <div class="cards">
-    <% @planets.each do |planet| %>
-      <div class="card border-0 rounded w-100">
-        <%= cl_image_tag planet.photo.key, height: 200, width: 400, crop: :scale, class: 'card-img-top' %>
-        <div class="card-body p-4">
-          <div class="d-flex justify-content-between align-items-baseline pb-3">
-              <h3 class="card-title"><%= planet.name %></h5>
-              <div class="stars">
-                <ul class="list-group list-group-horizontal pt-0">
-                  <% if !planet.rating.nil? %>
-                    <% planet.rating.times do %>
-                      <li class="list-group-item p-0 border-0"><ion-icon name="star"></ion-icon></li>
+  <div class="row">
+    <div class="col-6">
+      <% @planets.each do |planet| %>
+        <div class="card border-0 mb-5 rounded w-100">
+          <%= cl_image_tag planet.photo.key, crop: :scale, class: 'card-img-top' %>
+          <div class="card-body p-4">
+            <div class="d-flex justify-content-between align-items-baseline pb-3">
+                <h3 class="card-title"><%= planet.name %></h5>
+                <div class="stars">
+                  <ul class="list-group list-group-horizontal pt-0">
+                    <% if !planet.rating.nil? %>
+                      <% planet.rating.times do %>
+                        <li class="list-group-item p-0 border-0"><ion-icon name="star"></ion-icon></li>
+                      <% end %>
+                      <% (5 - planet.rating).times do %>
+                        <li class="list-group-item p-0 border-0"><ion-icon name="star-outline"></ion-icon></li>
+                      <% end %>
+                    <% else %>
+                      <% 5.times do %>
+                        <li class="list-group-item p-0 border-0"><ion-icon name="star-outline"></ion-icon></li>
+                      <% end %>
                     <% end %>
-                    <% (5 - planet.rating).times do %>
-                      <li class="list-group-item p-0 border-0"><ion-icon name="star-outline"></ion-icon></li>
-                    <% end %>
-                  <% else %>
-                    <% 5.times do %>
-                      <li class="list-group-item p-0 border-0"><ion-icon name="star-outline"></ion-icon></li>
-                    <% end %>
-                  <% end %>
-                </ul>
-              </div>
-          </div>
-          <div class="d-flex justify-content-between align-items-end">
-            <div>
-              <p class="little">à partir de</p>
-              <h4 class="mb-0"><%= number_with_delimiter(planet.price_per_night, :delimiter => ' ') %>€ <span class="little-plus">/nuit</span></p>
+                  </ul>
+                </div>
             </div>
-            <div class='d-flex'>
-              <button type="button" class="btn btn-booking d-flex align-items-center border-0 rounded me-2">
-                <%= link_to "Editer", edit_planet_path(planet), class: "nav-link text-light" %>
-              </button>
-              <button type="button" class="btn btn-danger d-flex align-items-center border-0 rounded">
-                <%= link_to "Effacer", planet_path(planet), data: {turbo_method: :delete, turbo_confirm: "Are you sure?"}, class: "nav-link text-light" %>
-              </button>
+            <div class="d-flex justify-content-between align-items-end">
+              <div>
+                <p class="little">à partir de</p>
+                <h4 class="mb-0"><%= number_with_delimiter(planet.price_per_night, :delimiter => ' ') %>€ <span class="little-plus">/nuit</span></p>
+              </div>
+              <div class='d-flex'>
+                <button type="button" class="btn btn-booking d-flex align-items-center border-0 rounded me-2">
+                  <%= link_to "Editer", edit_planet_path(planet), class: "nav-link text-light" %>
+                </button>
+                <button type="button" class="btn btn-danger d-flex align-items-center border-0 rounded">
+                  <%= link_to "Effacer", planet_path(planet), data: {turbo_method: :delete, turbo_confirm: "Are you sure?"}, class: "nav-link text-light" %>
+                </button>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    <% end %>
+      <% end %>
+    </div>
+    <div class="col-6">
+      <% if @ongoing_reservations.empty? %>
+        <div class="card border-0 mb-3 p-4 rounded">
+          <h6 class="mb-3 text-center">Réservations en cours</h6>
+          <p class="mb-0 text-center">Aucune réservation en cours</p>
+        </div>
+      <% else %>
+        <div class="card border-0 mb-3 p-4 rounded">
+          <h6 class="mb-0 text-center">Réservations en cours</h6>
+        </div>
+        <% @ongoing_reservations.each do |reservation| %>
+          <div class="card border-0 mb-3 p-4 rounded w-100">
+            <h4 class="mb-3 ps-3">Réservation pour <%= reservation.planet.name %></h4>
+            <div class="d-flex">
+              <div class="ps-3 w-50 mb-3">
+                <strong>Date de début</strong>
+                <p><%= reservation.start_date %></p>
+              </div>
+              <div class="pe-3 w-50 mb-3">
+                <strong>Date de fin</strong>
+                <p><%= reservation.end_date %></p>
+              </div>
+            </div>
+            <div class="d-flex">
+              <div class="ps-3 w-50 mb-3">
+                <strong>Nombre de personnes</strong>
+                <p><%= reservation.nb_persons %></p>
+              </div>
+              <div class="pe-3 w-50 mb-3">
+                <strong>Nombre de nuits</strong>
+                <p><%= (reservation.end_date - reservation.start_date).to_i %></p>
+              </div>
+            </div>
+            <div class="d-flex">
+              <div class="ps-3 w-50 mb-0">
+                <strong>Réservation au nom de</strong>
+                <p><%= reservation.user.email %></p>
+              </div>
+              <div class="pe-3 w-50 mb-0">
+                <strong>Prix</strong>
+                <p><%= number_with_delimiter((reservation.planet.price_per_night * (reservation.end_date - reservation.start_date)).to_i, :delimiter => ' ') %> €</p>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      <% end %>
+      <% if @coming_reservations.empty? %>
+        <div class="card border-0 mb-3 p-4 rounded">
+          <h6 class="mb-3 text-center">Réservations à venir</h6>
+          <p class="mb-0 text-center">Aucune réservation à venir</p>
+        </div>
+      <% else %>
+        <div class="card border-0 mb-3 p-4 rounded">
+          <h6 class="mb-0 text-center">Réservations à venir</h6>
+        </div>
+        <% @coming_reservations.each do |reservation| %>
+          <div class="card border-0 mb-3 p-4 rounded w-100">
+            <h4 class="mb-3 ps-3">Réservation pour <%= reservation.planet.name %></h4>
+            <div class="d-flex">
+              <div class="ps-3 w-50 mb-3">
+                <strong>Date de début</strong>
+                <p><%= reservation.start_date %></p>
+              </div>
+              <div class="pe-3 w-50 mb-3">
+                <strong>Date de fin</strong>
+                <p><%= reservation.end_date %></p>
+              </div>
+            </div>
+            <div class="d-flex">
+              <div class="ps-3 w-50 mb-3">
+                <strong>Nombre de personnes</strong>
+                <p><%= reservation.nb_persons %></p>
+              </div>
+              <div class="pe-3 w-50 mb-3">
+                <strong>Nombre de nuits</strong>
+                <p><%= (reservation.end_date - reservation.start_date).to_i %></p>
+              </div>
+            </div>
+            <div class="d-flex">
+              <div class="ps-3 w-50 mb-0">
+                <strong>Réservation au nom de</strong>
+                <p><%= reservation.user.email %></p>
+              </div>
+              <div class="pe-3 w-50 mb-0">
+                <strong>Prix</strong>
+                <p><%= number_with_delimiter((reservation.planet.price_per_night * (reservation.end_date - reservation.start_date)).to_i, :delimiter => ' ') %> €</p>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      <% end %>
+      <% if @passed_reservations.empty? %>
+        <div class="card border-0 mb-3 p-4 rounded">
+          <h6 class="mb-3 text-center">Réservations passées</h6>
+          <p class="mb-0 text-center">Aucune réservation passée</p>
+        </div>
+      <% else %>
+        <div class="card border-0 mb-3 p-4 rounded">
+          <h6 class="mb-0 text-center">Réservations passées</h6>
+        </div>
+        <% @passed_reservations.each do |reservation| %>
+          <div class="card border-0 mb-3 p-4 rounded w-100">
+            <h4 class="mb-3 ps-3">Réservation pour <%= reservation.planet.name %></h4>
+            <div class="d-flex">
+              <div class="ps-3 w-50 mb-3">
+                <strong>Date de début</strong>
+                <p><%= reservation.start_date %></p>
+              </div>
+              <div class="pe-3 w-50 mb-3">
+                <strong>Date de fin</strong>
+                <p><%= reservation.end_date %></p>
+              </div>
+            </div>
+            <div class="d-flex">
+              <div class="ps-3 w-50 mb-3">
+                <strong>Nombre de personnes</strong>
+                <p><%= reservation.nb_persons %></p>
+              </div>
+              <div class="pe-3 w-50 mb-3">
+                <strong>Nombre de nuits</strong>
+                <p><%= (reservation.end_date - reservation.start_date).to_i %></p>
+              </div>
+            </div>
+            <div class="d-flex">
+              <div class="ps-3 w-50 mb-0">
+                <strong>Réservation au nom de</strong>
+                <p><%= reservation.user.email %></p>
+              </div>
+              <div class="pe-3 w-50 mb-0">
+                <strong>Prix</strong>
+                <p><%= number_with_delimiter((reservation.planet.price_per_night * (reservation.end_date - reservation.start_date)).to_i, :delimiter => ' ') %> €</p>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      <% end %>
+    </div>
   </div>
 </div>

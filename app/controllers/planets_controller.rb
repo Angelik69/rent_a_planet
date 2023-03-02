@@ -1,3 +1,5 @@
+require 'date'
+
 class PlanetsController < ApplicationController
   skip_before_action :authenticate_user!, only: %i[landing]
   before_action :set_planet, only: %i[show edit update destroy]
@@ -46,6 +48,21 @@ class PlanetsController < ApplicationController
 
   def user
     @planets = Planet.where(user: current_user)
+    all_reservations = Reservation.all
+    @passed_reservations = []
+    @ongoing_reservations = []
+    @coming_reservations = []
+    all_reservations.each do |reservation|
+      if @planets.last.user_id == reservation.planet.user_id
+        if reservation.end_date < Date.today
+          @passed_reservations << reservation
+        elsif reservation.start_date > Date.today
+          @coming_reservations << reservation
+        else
+          @ongoing_reservations << reservation
+        end
+      end
+    end
   end
 
   private
