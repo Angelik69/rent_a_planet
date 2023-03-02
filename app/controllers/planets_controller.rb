@@ -4,6 +4,7 @@ class PlanetsController < ApplicationController
 
   def index
     @planets = Planet.all
+    @planets = @planets.reject { |planet| planet.user == current_user } if user_signed_in?
   end
 
   def new
