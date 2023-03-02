@@ -23,6 +23,3 @@ class ReservationsController < ApplicationController
   end
 end
 
-# start_date: params[:reservation][:start_date].to_date,
-# end_date: params[:reservation][:end_date].to_date,
-# nb_persons: params[:reservation][:nb_persons]
