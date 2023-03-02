@@ -9,7 +9,7 @@
                 <%= f.input :end_date, label: 'Fin', as: :string, type: :text,
                   input_html: { 'data-price-target' => 'end', 'data-action' => 'input->price#change' } %>
             </div>
-            <%= f.input :nb_persons, label: 'Nombre de personnes' %>
+            <%= f.input :nb_persons, label: 'Nombre de personnes', collection: 1..20 %>
             <div class="d-grid gap-2 pb-4">
               <%= f.submit "Réserver", class: "btn btn-booking py-2 rounded fw-bolder mt-3" %>
             </div>
