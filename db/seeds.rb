@@ -54,3 +54,18 @@ print "Seeding Planets..."
 }
 
 puts "OK !"
+
+print "Seeding Bookings..."
+
+number = 1
+10.times {
+  booking = Reservation.new(
+    start_date: Faker::Date.between(from: "2023-0#{number}-01", to: "2023-0#{number}-31"),
+    end_date: Faker::Date.between(from: start_date, to: "2023-0#{number}-31"),
+    planet_id: sample([4, 5, 6, 11]),
+    user_id: 10
+  )
+  booking.save!
+  number += 1
+}
+puts "OK !"
