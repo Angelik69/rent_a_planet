@@ -58,6 +58,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_27_174501) do
   create_table "reservations", force: :cascade do |t|
     t.date "start_date"
     t.date "end_date"
+    t.integer "nb_persons"
     t.bigint "planet_id", null: false
     t.bigint "user_id", null: false
     t.datetime "created_at", null: false

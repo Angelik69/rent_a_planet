@@ -4,11 +4,11 @@ class ReservationsController < ApplicationController
   def create
     @reservation = Reservation.new(reservation_params)
     @reservation.planet = @planet
-    @reservation.user = curent_user
+    @reservation.user = current_user
     if @reservation.save
-      redirect_to planet_path(@planet)
+      redirect_to user_planets_path
     else
-      render 'planets/show', status: :unprocessable_entity
+      render 'planets/show', planet: @planet, status: :unprocessable_entity
     end
   end
 
@@ -19,6 +19,10 @@ class ReservationsController < ApplicationController
   end
 
   def reservation_params
-    params.require(:reservation).permit(:start_date, :end_date)
+    params.require(:reservation).permit(:start_date, :end_date, :nb_persons)
   end
 end
+
+# start_date: params[:reservation][:start_date].to_date,
+# end_date: params[:reservation][:end_date].to_date,
+# nb_persons: params[:reservation][:nb_persons]

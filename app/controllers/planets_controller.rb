@@ -1,9 +1,10 @@
 class PlanetsController < ApplicationController
-  skip_before_action :authenticate_user!, only: %i[index show]
+  skip_before_action :authenticate_user!, only: %i[index]
   before_action :set_planet, only: %i[show edit update destroy]
 
   def index
     @planets = Planet.all
+    @planets = @planets.reject { |planet| planet.user == current_user } if user_signed_in?
   end
 
   def new
@@ -20,7 +21,10 @@ class PlanetsController < ApplicationController
     end
   end
 
-  def show; end
+  def show
+    @reservation = Reservation.new
+    console
+  end
 
   def edit; end
 
@@ -42,8 +46,7 @@ class PlanetsController < ApplicationController
   end
 
   def calendar
-    start_date = params.fetch(:start_date, Date.today).to_date
-    @meetings = Reservation.where(starts_at: start_date.beginning_of_month.beginning_of_week..start_date.end_of_month.end_of_week)
+
   end
 
   private

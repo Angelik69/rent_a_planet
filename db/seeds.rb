@@ -27,27 +27,27 @@ SUFFIX = %w[I II III IV V VI VII VIII IX X XI XII XIII XIV XV XVI XVII XVIII XIX
 
 print "Seeding Users..."
 i = 1
-10.times {
+5.times {
   User.create!(
     email: "user#{i}@gmail.com",
     password: "password"
   )
   i += 1
 }
-puts "OK ! (user1@gmail.com -> user10@gmail.com, password = 'password' partout)"
+puts "OK ! (user1@gmail.com -> user5@gmail.com, password = 'password' partout)"
 
 print "Seeding Planets..."
 
-15.times {
+10.times {
   file = URI.open("https://res.cloudinary.com/dx1sso7tq/image/upload/#{PLANETS.sample}")
   planet = Planet.new(
     name: Faker::Space.star + ' ' + SUFFIX.sample,
     planet_type: TYPE.sample,
     description: Faker::Lorem.paragraphs(number: 5),
-    price_per_night: Faker::Number.between(from: 25, to: 2000),
-    rating: Faker::Number.between(from: 1, to: 5),
-    user_id: Faker::Number.between(from: 1, to: 10),
-    population: Faker::Number.between(from: 200_000, to: 950_000)
+    price_per_night: rand(50..2000),
+    rating: rand(1..5),
+    user_id: rand(1..5),
+    population: rand(200_000..950_000)
   )
   planet.photo.attach(io: file, filename: "photo.jpg", content_type: "image/jpg")
   planet.save!
