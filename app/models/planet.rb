@@ -6,4 +6,10 @@ class Planet < ApplicationRecord
   validates :name, uniqueness: true, presence: true
   validates :description, presence: true
   validates :price_per_night, presence: true
+
+  def unavailable_dates
+    reservations.pluck(:start_date, :end_date).map do |range|
+      { from: range[0], to: range[1] }
+    end
+  end
 end

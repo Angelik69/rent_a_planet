@@ -2,9 +2,12 @@ class ReservationsController < ApplicationController
   before_action :set_planet
 
   def create
-    @reservation = Reservation.new(reservation_params)
+    @reservation = Reservation.new(
+      start_date: params[:reservation][:start_date].to_date,
+      end_date: params[:reservation][:end_date].to_date
+    )
     @reservation.planet = @planet
-    @reservation.user = curent_user
+    @reservation.user = current_user
     if @reservation.save
       redirect_to planet_path(@planet)
     else

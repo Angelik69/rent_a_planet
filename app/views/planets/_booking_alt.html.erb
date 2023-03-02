@@ -1,0 +1,34 @@
+
+
+<div class="card rounded w-100 " id='planet-reservation-dates' data-unavailable="<%= @planet.unavailable_dates.to_json %>">
+    <div class="card-body p-4">
+      <h6 class="card-title pb-3">Réservation</h6>
+      <% if current_user.id != @planet.user_id  %>
+        <%= simple_form_for([@planet, @reservation]) do |f| %>
+            <div class='d-flex pb-3'>
+                <%= f.input :start_date, as: :string, type: :text %>
+                <%= f.input :end_date, as: :string, type: :text %>
+            </div>
+
+            <div class="d-grid gap-2 pb-4">
+              <%= f.submit "Réserver", class: "btn btn-booking py-2 rounded fw-bolder" %>
+            </div>
+          <% end %>
+      <% end %>
+          <div class="w-100">
+            <div class="d-flex justify-content-between">
+              <p class="mb-1"><%= @planet.price_per_night %>€ x 12 nuits</p>
+              <p class="mb-1"><%= number_with_delimiter(@rent_price = @planet.price_per_night * 12, :delimiter => ' ') %> €</p>
+            </div>
+            <div class="d-flex justify-content-between">
+              <p class="mb-0">Frais de services</p>
+              <p class="mb-0"><%= number_with_delimiter(@fees = @planet.price_per_night * 1500, :delimiter => ' ') %> €</p>
+            </div>
+            <hr class="hr color"/>
+            <div class="d-flex justify-content-between">
+              <p class="fw-bolder mb-0">Total</p>
+              <p class="fw-bolder mb-0"><%= number_with_delimiter(@total = @fees + @rent_price, :delimiter => ' ') %> €</p>
+            </div>
+          </div>
+    </div>
+</div>
