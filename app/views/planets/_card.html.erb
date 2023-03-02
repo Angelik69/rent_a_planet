@@ -1,5 +1,5 @@
       <div class="card border-0 rounded w-100">
-        <%= cl_image_tag @planet.photo.key, crop: :scale, class: 'card-img-top' %>
+        <%= cl_image_tag @planet.photo.key, height: 400, width: 400, crop: :scale, class: 'card-img-top' %>
         <div class="card-body p-5">
           <div class="d-flex justify-content-between align-items-end margin-custom">
               <h5 class="card-title mb-0"><%= @planet.name %></h5>
@@ -30,11 +30,11 @@
             </div>
             <div class="pe-5">
               <h6 class="card-title mb-3">Type</h6>
-              <p class="card-title">Gazeuse</p>
+              <p class="card-title"><%= @planet.planet_type.capitalize %></p>
             </div>
             <div>
               <h6 class="card-title mb-3">Population</h6>
-              <p class="card-title">50M</p>
+              <p class="card-title"><%= number_with_delimiter(@planet.population, :delimiter => ' ') %></p>
             </div>
           </div>
           <p><%= @planet.description %></p>
