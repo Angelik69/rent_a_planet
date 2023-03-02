@@ -15,7 +15,7 @@ export default class extends Controller {
       nights = Math.floor((Date.parse(this.endTarget.value) - Date.parse(this.startTarget.value)) / 86400000)
     }
     this.nightsTarget.textContent = nights;
-    this.stayPriceTarget.textContent = nights * price;
-    this.totalPriceTarget.textContent = nights * price + 150000
+    this.stayPriceTarget.textContent = (nights * price).toLocaleString('fr-FR');
+    this.totalPriceTarget.textContent = (nights * price + 150000).toLocaleString('fr-FR');
   }
 }
