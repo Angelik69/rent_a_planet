@@ -1,44 +1,18 @@
-      <div class="card rounded w-100">
-        <div class="card-body p-4">
-          <h6 class="card-title pb-3">Réservation</h6>
-          <div class="d-flex pb-3" data-controller="calendar">
-            <div class="me-2 w-50">
-              <label for="startingDate" class="mb-1">Date de début</label>
-              <select class="form-select" aria-label="Default select example" data-action="click->calendar#show">
-                <option selected>28/02/2023</option>
-                <option value="1">01/03/2023</option>
-                <option value="2">02/03/2023</option>
-                <option value="3">03/03/2023</option>
-                <option value="2">04/03/2023</option>
-                <option value="3">05/03/2023</option>
-              </select>
+<div class="card rounded w-100 " id='planet-reservation-dates' data-unavailable="<%= @planet.unavailable_dates.to_json %>">
+    <div class="card-body p-4">
+      <h6 class="card-title pb-3">Réservation</h6>
+      <% if current_user.id != @planet.user_id  %>
+        <%= simple_form_for([@planet, @reservation]) do |f| %>
+            <div class='d-flex pb-3'>
+                <%= f.input :start_date, as: :string, type: :text %>
+                <%= f.input :end_date, as: :string, type: :text %>
             </div>
-            <div class="ms-2 w-50">
-              <label for="endingDate" class="mb-1">Date de fin</label>
-              <select class="form-select" aria-label="Default select example" data-action="click->calendar#show">
-                <option selected>09/03/2023</option>
-                <option value="1">10/03/2023</option>
-                <option value="2">11/03/2023</option>
-                <option value="3">12/03/2023</option>
-                <option value="2">13/03/2023</option>
-                <option value="3">14/03/2023</option>
-              </select>
+            <%= f.input :nb_persons %>
+            <div class="d-grid gap-2 pb-4">
+              <%= f.submit "Réserver", class: "btn btn-booking py-2 rounded fw-bolder" %>
             </div>
-          </div>
-          <div class="w-100 pb-4">
-            <label for="numberOfPersons" class="mb-1">Nombre de personnes</label>
-            <select class="form-select" aria-label="Default select example">
-              <option selected>1 personne</option>
-              <option value="1">2 personnes</option>
-              <option value="2">3 personnes</option>
-              <option value="3">4 personnes</option>
-              <option value="2">5 personnes</option>
-              <option value="3">6 personnes</option>
-            </select>
-          </div>
-          <div class="d-grid gap-2 pb-4">
-            <button class="btn btn-booking py-2 rounded fw-bolder" type="button">Réserver</button>
-          </div>
+          <% end %>
+      <% end %>
           <div class="w-100">
             <div class="d-flex justify-content-between">
               <p class="mb-1"><%= @planet.price_per_night %>€ x 12 nuits</p>
@@ -54,5 +28,5 @@
               <p class="fw-bolder mb-0"><%= number_with_delimiter(@total = @fees + @rent_price, :delimiter => ' ') %> €</p>
             </div>
           </div>
-        </div>
-      </div>
+    </div>
+</div>

@@ -23,7 +23,6 @@ class PlanetsController < ApplicationController
 
   def show
     @reservation = Reservation.new
-    console
   end
 
   def edit; end
