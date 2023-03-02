@@ -6,6 +6,8 @@ class PlanetsController < ApplicationController
     @planets = Planet.all
     @planets = @planets.reject { |planet| planet.user == current_user } if user_signed_in?
   end
+  def landing
+  end
 
   def new
     @planet = Planet.new
