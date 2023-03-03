@@ -6,7 +6,6 @@ class PlanetsController < ApplicationController
 
   def index
     @planets = Planet.all.reject { |planet| planet.user == current_user }
-    console
   end
 
   def landing; end
