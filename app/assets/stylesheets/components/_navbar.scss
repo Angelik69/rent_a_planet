@@ -11,9 +11,11 @@
   width: 40px;
 }
 
-.nav-link {
+.navbar-lewagon .nav-link {
   color: #02021e;
-  font-weight: 700;
+  font-weight: 200;
+  font-family: 'Audiowide', cursive;
+  font-size: 1.0rem;
 }
 
 .nav-item {
@@ -30,7 +32,7 @@
 }
 
 .nav-item-add .nav-link {
-  font-weight: 400;
+  font-weight: 200;
 }
 
 .navbar-brand span {

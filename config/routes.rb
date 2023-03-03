@@ -1,12 +1,12 @@
 Rails.application.routes.draw do
   devise_for :users
-  get "landing", to: "planets#landing"
   root to: "planets#landing"
+  # get "landing", to: "planets#index"
   resources :planets do
     collection do
       get :user
     end
-    resources :reservations, only: :create
+    resources :reservations, only: %i[create]
   end
-  resources :reservations, only: :destroy
+  resources :reservations, only: %i[index destroy]
 end

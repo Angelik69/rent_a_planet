@@ -90,10 +90,10 @@ print "Seeding Reservations..."
   booking = Reservation.new(
     start_date: date + (rand * 21),
     nb_persons: rand(1..5),
-    planet_id: rand(1..10),
-    user_id: rand(1..3)
+    planet_id: rand(1..10)
   )
-  booking.end_date = booking.start_date + rand(3..7)
+  booking.end_date = booking.start_date + rand(1..20)
+  booking.user_id = ([*1..3] - [booking.planet_id]).sample
   booking.save!
 }
 puts "OK !"
