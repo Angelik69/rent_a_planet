@@ -18,7 +18,7 @@ class PlanetsController < ApplicationController
     @planet = Planet.new(planet_params)
     @planet.user = current_user
     if @planet.save
-      redirect_to planet_path(@planet)
+      redirect_to user_planets_path
     else
       render :new, status: :unprocessable_entity
     end
@@ -32,7 +32,7 @@ class PlanetsController < ApplicationController
 
   def update
     if @planet.update(planet_params)
-      redirect_to planet_path(@planet)
+      redirect_to user_planets_path
     else
       render :show, status: :unprocessable_entity
     end
@@ -40,7 +40,7 @@ class PlanetsController < ApplicationController
 
   def destroy
     @planet.destroy
-    redirect_to planets_path, status: :see_other
+    redirect_to user_planets_path, status: :see_other
   end
 
   def user
