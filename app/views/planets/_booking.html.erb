@@ -5,7 +5,7 @@
         <%= simple_form_for([@planet, @reservation]) do |f| %>
             <div class='d-flex justify-content-between pb-3'>
                 <%= f.input :start_date, label: 'Début', as: :string, type: :text,
-                  input_html: { 'data-price-target' => 'start', 'data-action' => 'input->price#change' } %>
+                  input_html: { 'data-price-target' => 'start', 'data-action' => 'input->price#change', class: 'me-2' } %>
                 <%= f.input :end_date, label: 'Fin', as: :string, type: :text,
                   input_html: { 'data-price-target' => 'end', 'data-action' => 'input->price#change' } %>
             </div>
