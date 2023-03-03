@@ -1,13 +1,13 @@
-<div class="card rounded w-100 " id='planet-reservation-dates' data-unavailable="<%= @planet.unavailable_dates.to_json %>">
+<div class="card rounded w-100 " id='planet-reservation-dates' data-controller='picker' data-unavailable="<%= @planet.unavailable_dates.to_json %>">
     <div class="card-body p-4" data-controller='price'>
       <h6 class="card-title pb-3">Réservation</h6>
       <% if current_user.id != @planet.user_id  %>
         <%= simple_form_for([@planet, @reservation]) do |f| %>
             <div class='d-flex justify-content-between pb-3'>
                 <%= f.input :start_date, label: 'Début', as: :string, type: :text,
-                  input_html: { 'data-price-target' => 'start', 'data-action' => 'input->price#change' } %>
+                  input_html: { 'data-picker-target' =>'start', 'data-price-target' => 'start', 'data-action' => 'focus->picker#showLeft input->price#change' } %>
                 <%= f.input :end_date, label: 'Fin', as: :string, type: :text,
-                  input_html: { 'data-price-target' => 'end', 'data-action' => 'input->price#change' } %>
+                  input_html: { 'disabled' => 'true', 'data-picker-target' =>'end', 'data-price-target' => 'end', 'data-action' => 'focus->picker#showRight input->price#change' } %>
             </div>
             <%= f.input :nb_persons, label: 'Nombre de personnes', collection: 1..20 %>
             <div class="d-grid gap-2 pb-4">
