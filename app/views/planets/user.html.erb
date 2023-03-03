@@ -3,7 +3,7 @@
     <div class="col-6">
       <% @planets.each do |planet| %>
         <div class="card border-0 mb-5 rounded w-100">
-          <%= cl_image_tag planet.photo.key, crop: :scale, class: 'card-img-top' %>
+          <%= cl_image_tag planet.photo.key, height: 200, width: 400, crop: :fill, class: 'card-img-top' %>
           <div class="card-body p-4">
             <div class="d-flex justify-content-between align-items-baseline pb-3">
                 <h3 class="card-title"><%= planet.name %></h5>

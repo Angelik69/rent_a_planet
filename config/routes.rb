@@ -1,7 +1,6 @@
 Rails.application.routes.draw do
   devise_for :users
-  get "landing", to: "planets#landing"
-  root to: "planets#landing"
+  # get "landing", to: "planets#index"
   resources :planets do
     collection do
       get :user
@@ -9,4 +8,5 @@ Rails.application.routes.draw do
     resources :reservations, only: :create
   end
   resources :reservations, only: :destroy
+  root to: "planets#landing"
 end
