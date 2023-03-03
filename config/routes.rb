@@ -6,7 +6,7 @@ Rails.application.routes.draw do
     collection do
       get :user
     end
-    resources :reservations, only: :create
+    resources :reservations, only: %i[create]
   end
-  resources :reservations, only: :destroy
+  resources :reservations, only: %i[index destroy]
 end

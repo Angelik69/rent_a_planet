@@ -60,6 +60,9 @@ class PlanetsController < ApplicationController
         end
       end
     end
+    @coming_reservations.sort! { |a, b| a.start_date <=> b.start_date }
+    @ongoing_reservations.sort! { |a, b| a.start_date <=> b.start_date }
+    @passed_reservations.sort! { |a, b| a.start_date <=> b.start_date }
   end
 
   private
