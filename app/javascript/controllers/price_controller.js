@@ -5,7 +5,7 @@ export default class extends Controller {
   static targets = ['start', 'end', 'nights', 'nightPrice', 'stayPrice', 'totalPrice']
 
   connect() {
-    console.log('hello');
+    console.log('hello from price-controller');
   }
 
   change() {
