@@ -43,143 +43,149 @@
       <% end %>
     </div>
     <div class="col-6">
-    <div class="card border-0 mb-3 p-4 rounded">
-      <h6 class="mb-4 text-center">Réservations en cours</h6>
-      <div class="d-flex justify-content-evenly">
-        <a class="btn btn-booking rounded-pill" data-bs-toggle="collapse" href="#collapseOngoing" role="button" aria-expanded="false" aria-controls="collapseOngoing">
-          En cours
-        </a>
-        <a class="btn btn-booking collapsed rounded-pill" data-bs-toggle="collapse" href="#collapseComing" role="button" aria-expanded="false" aria-controls="collapseComing">
-          À venir
-        </a>
-        <a class="btn btn-booking collapsed rounded-pill" data-bs-toggle="collapse" href="#collapsePassed" role="button" aria-expanded="false" aria-controls="collapsePassed">
-          Passées
-        </a>
+      <div class="card border-0 mb-3 p-4 rounded">
+        <h6 class="mb-4 text-center">Réservations de mes planètes</h6>
+        <div class="d-flex justify-content-evenly">
+          <a class="btn btn-booking rounded-pill" data-bs-toggle="collapse" href="#collapseOngoing" role="button" aria-expanded="false" aria-controls="collapseOngoing">
+            En cours
+          </a>
+          <a class="btn btn-booking collapsed rounded-pill" data-bs-toggle="collapse" href="#collapseComing" role="button" aria-expanded="false" aria-controls="collapseComing">
+            À venir
+          </a>
+          <a class="btn btn-booking collapsed rounded-pill" data-bs-toggle="collapse" href="#collapsePassed" role="button" aria-expanded="false" aria-controls="collapsePassed">
+            Passées
+          </a>
+        </div>
       </div>
-    </div>
-    <div class="collapse" id="collapseOngoing">
-      <% if @ongoing_reservations.empty? %>
-        <p class="mb-0 text-center">Aucune réservation à venir</p>
-      <% else %>
-        <% @ongoing_reservations.each do |reservation| %>
+      <div class="collapse show" id="collapseOngoing">
+        <% if @ongoing_reservations.empty? %>
           <div class="card border-0 mb-3 p-4 rounded w-100">
-            <h4 class="mb-3 ps-3">Réservation pour <%= reservation.planet.name %></h4>
-            <div class="d-flex">
-              <div class="ps-3 w-50 mb-3">
-                <strong>Date de début</strong>
-                <p><%= reservation.start_date.strftime('%d-%m-%Y') %></p>
-              </div>
-              <div class="pe-3 w-50 mb-3">
-                <strong>Date de fin</strong>
-                <p><%= reservation.end_date.strftime('%d-%m-%Y') %></p>
-              </div>
-            </div>
-            <div class="d-flex">
-              <div class="ps-3 w-50 mb-3">
-                <strong>Nombre de personnes</strong>
-                <p><%= reservation.nb_persons %></p>
-              </div>
-              <div class="pe-3 w-50 mb-3">
-                <strong>Nombre de nuits</strong>
-                <p><%= (reservation.end_date - reservation.start_date).to_i %></p>
-              </div>
-            </div>
-            <div class="d-flex">
-              <div class="ps-3 w-50 mb-0">
-                <strong>Réservation au nom de</strong>
-                <p><%= reservation.user.email %></p>
-              </div>
-              <div class="pe-3 w-50 mb-0">
-                <strong>Prix</strong>
-                <p><%= number_with_delimiter((reservation.planet.price_per_night * (reservation.end_date - reservation.start_date)).to_i, :delimiter => ' ') %> €</p>
-              </div>
-            </div>
+            <p class="mb-0 text-center">Aucune réservation en cours</p>
           </div>
+        <% else %>
+          <% @ongoing_reservations.each do |reservation| %>
+            <div class="card border-0 mb-3 p-4 rounded w-100">
+              <h4 class="mb-3 ps-3">Réservation pour <%= reservation.planet.name %></h4>
+              <div class="d-flex">
+                <div class="ps-3 w-50 mb-3">
+                  <strong>Date de début</strong>
+                  <p><%= reservation.start_date.strftime('%d-%m-%Y') %></p>
+                </div>
+                <div class="pe-3 w-50 mb-3">
+                  <strong>Date de fin</strong>
+                  <p><%= reservation.end_date.strftime('%d-%m-%Y') %></p>
+                </div>
+              </div>
+              <div class="d-flex">
+                <div class="ps-3 w-50 mb-3">
+                  <strong>Nombre de personnes</strong>
+                  <p><%= reservation.nb_persons %></p>
+                </div>
+                <div class="pe-3 w-50 mb-3">
+                  <strong>Nombre de nuits</strong>
+                  <p><%= (reservation.end_date - reservation.start_date).to_i %></p>
+                </div>
+              </div>
+              <div class="d-flex">
+                <div class="ps-3 w-50 mb-0">
+                  <strong>Réservation de</strong>
+                  <p><%= cl_image_tag reservation.user.avatar.key, width: 25, height: 25, crop: :scale, class: 'rounded-circle me-2' %><%= reservation.user.email %></p>
+                </div>
+                <div class="pe-3 w-50 mb-0">
+                  <strong>Prix</strong>
+                  <p><%= number_with_delimiter((reservation.planet.price_per_night * (reservation.end_date - reservation.start_date)).to_i, :delimiter => ' ') %> €</p>
+                </div>
+              </div>
+            </div>
+          <% end %>
         <% end %>
-      <% end %>
-    </div>
-    <div class="collapse" id="collapseComing">
-      <% if @coming_reservations.empty? %>
-        <p class="mb-0 text-center">Aucune réservation passée</p>
-      <% else %>
-        <% @coming_reservations.each do |reservation| %>
+      </div>
+      <div class="collapse" id="collapseComing">
+        <% if @coming_reservations.empty? %>
           <div class="card border-0 mb-3 p-4 rounded w-100">
-            <h4 class="mb-3 ps-3">Réservation pour <%= reservation.planet.name %></h4>
-            <div class="d-flex">
-              <div class="ps-3 w-50 mb-3">
-                <strong>Date de début</strong>
-                <p><%= reservation.start_date.strftime('%d-%m-%Y') %></p>
-              </div>
-              <div class="pe-3 w-50 mb-3">
-                <strong>Date de fin</strong>
-                <p><%= reservation.end_date.strftime('%d-%m-%Y') %></p>
-              </div>
-            </div>
-            <div class="d-flex">
-              <div class="ps-3 w-50 mb-3">
-                <strong>Nombre de personnes</strong>
-                <p><%= reservation.nb_persons %></p>
-              </div>
-              <div class="pe-3 w-50 mb-3">
-                <strong>Nombre de nuits</strong>
-                <p><%= (reservation.end_date - reservation.start_date).to_i %></p>
-              </div>
-            </div>
-            <div class="d-flex">
-              <div class="ps-3 w-50 mb-0">
-                <strong>Réservation au nom de</strong>
-                <p><%= reservation.user.email %></p>
-              </div>
-              <div class="pe-3 w-50 mb-0">
-                <strong>Prix</strong>
-                <p><%= number_with_delimiter((reservation.planet.price_per_night * (reservation.end_date - reservation.start_date)).to_i, :delimiter => ' ') %> €</p>
-              </div>
-            </div>
+            <p class="mb-0 text-center">Aucune réservation à venir</p>
           </div>
+        <% else %>
+          <% @coming_reservations.each do |reservation| %>
+            <div class="card border-0 mb-3 p-4 rounded w-100">
+              <h4 class="mb-3 ps-3">Réservation pour <%= reservation.planet.name %></h4>
+              <div class="d-flex">
+                <div class="ps-3 w-50 mb-3">
+                  <strong>Date de début</strong>
+                  <p><%= reservation.start_date.strftime('%d-%m-%Y') %></p>
+                </div>
+                <div class="pe-3 w-50 mb-3">
+                  <strong>Date de fin</strong>
+                  <p><%= reservation.end_date.strftime('%d-%m-%Y') %></p>
+                </div>
+              </div>
+              <div class="d-flex">
+                <div class="ps-3 w-50 mb-3">
+                  <strong>Nombre de personnes</strong>
+                  <p><%= reservation.nb_persons %></p>
+                </div>
+                <div class="pe-3 w-50 mb-3">
+                  <strong>Nombre de nuits</strong>
+                  <p><%= (reservation.end_date - reservation.start_date).to_i %></p>
+                </div>
+              </div>
+              <div class="d-flex">
+                <div class="ps-3 w-50 mb-0">
+                  <strong>Réservation de</strong>
+                  <p><%= cl_image_tag reservation.user.avatar.key, width: 25, height: 25, crop: :scale, class: 'rounded-circle me-2' %><%= reservation.user.email %></p>
+                </div>
+                <div class="pe-3 w-50 mb-0">
+                  <strong>Prix</strong>
+                  <p><%= number_with_delimiter((reservation.planet.price_per_night * (reservation.end_date - reservation.start_date)).to_i, :delimiter => ' ') %> €</p>
+                </div>
+              </div>
+            </div>
+          <% end %>
         <% end %>
-      <% end %>
-    </div>
-    <div class="collapse" id="collapsePassed">
-      <% if @passed_reservations.empty? %>
-        <p class="mb-0 text-center">Aucune réservation passée</p>
-      <% else %>
-        <% @passed_reservations.each do |reservation| %>
+      </div>
+      <div class="collapse" id="collapsePassed">
+        <% if @passed_reservations.empty? %>
           <div class="card border-0 mb-3 p-4 rounded w-100">
-            <h4 class="mb-3 ps-3">Réservation pour <%= reservation.planet.name %></h4>
-            <div class="d-flex">
-              <div class="ps-3 w-50 mb-3">
-                <strong>Date de début</strong>
-                <p><%= reservation.start_date.strftime('%d-%m-%Y') %></p>
-              </div>
-              <div class="pe-3 w-50 mb-3">
-                <strong>Date de fin</strong>
-                <p><%= reservation.end_date.strftime('%d-%m-%Y') %></p>
-              </div>
-            </div>
-            <div class="d-flex">
-              <div class="ps-3 w-50 mb-3">
-                <strong>Nombre de personnes</strong>
-                <p><%= reservation.nb_persons %></p>
-              </div>
-              <div class="pe-3 w-50 mb-3">
-                <strong>Nombre de nuits</strong>
-                <p><%= (reservation.end_date - reservation.start_date).to_i %></p>
-              </div>
-            </div>
-            <div class="d-flex">
-              <div class="ps-3 w-50 mb-0">
-                <strong>Réservation au nom de</strong>
-                <p><%= reservation.user.email %></p>
-              </div>
-              <div class="pe-3 w-50 mb-0">
-                <strong>Prix</strong>
-                <p><%= number_with_delimiter((reservation.planet.price_per_night * (reservation.end_date - reservation.start_date)).to_i, :delimiter => ' ') %> €</p>
-              </div>
-            </div>
+            <p class="mb-0 text-center">Aucune réservation passée</p>
           </div>
+        <% else %>
+          <% @passed_reservations.each do |reservation| %>
+            <div class="card border-0 mb-3 p-4 rounded w-100">
+              <h4 class="mb-3 ps-3">Réservation pour <%= reservation.planet.name %></h4>
+              <div class="d-flex">
+                <div class="ps-3 w-50 mb-3">
+                  <strong>Date de début</strong>
+                  <p><%= reservation.start_date.strftime('%d-%m-%Y') %></p>
+                </div>
+                <div class="pe-3 w-50 mb-3">
+                  <strong>Date de fin</strong>
+                  <p><%= reservation.end_date.strftime('%d-%m-%Y') %></p>
+                </div>
+              </div>
+              <div class="d-flex">
+                <div class="ps-3 w-50 mb-3">
+                  <strong>Nombre de personnes</strong>
+                  <p><%= reservation.nb_persons %></p>
+                </div>
+                <div class="pe-3 w-50 mb-3">
+                  <strong>Nombre de nuits</strong>
+                  <p><%= (reservation.end_date - reservation.start_date).to_i %></p>
+                </div>
+              </div>
+              <div class="d-flex">
+                <div class="ps-3 w-50 mb-0">
+                  <strong>Réservation de</strong>
+                  <p><%= cl_image_tag reservation.user.avatar.key, width: 25, height: 25, crop: :scale, class: 'rounded-circle me-2' %><%= reservation.user.email %></p>
+                </div>
+                <div class="pe-3 w-50 mb-0">
+                  <strong>Prix</strong>
+                  <p><%= number_with_delimiter((reservation.planet.price_per_night * (reservation.end_date - reservation.start_date)).to_i, :delimiter => ' ') %> €</p>
+                </div>
+              </div>
+            </div>
+          <% end %>
         <% end %>
-      <% end %>
-    </div>
+      </div>
     </div>
   </div>
 </div>

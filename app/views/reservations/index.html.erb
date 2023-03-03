@@ -1,24 +1,34 @@
 <div class="container mt-5">
-  <% if @ongoing_reservations.empty? %>
+  <div class="card border-0 mb-3 rounded w-100">
     <div class="card border-0 mb-3 p-4 rounded">
-      <h6 class="mb-3 text-center">Vos réservations en cours</h6>
-      <p class="mb-0 text-center">Aucune réservation en cours</p>
+      <h6 class="mb-4 text-center">Mes réservations</h6>
+      <div class="d-flex justify-content-evenly">
+        <a class="btn btn-booking rounded-pill" data-bs-toggle="collapse" href="#collapseOngoing" role="button" aria-expanded="false" aria-controls="collapseOngoing">
+          En cours
+        </a>
+        <a class="btn btn-booking collapsed rounded-pill" data-bs-toggle="collapse" href="#collapseComing" role="button" aria-expanded="false" aria-controls="collapseComing">
+          À venir
+        </a>
+        <a class="btn btn-booking collapsed rounded-pill" data-bs-toggle="collapse" href="#collapsePassed" role="button" aria-expanded="false" aria-controls="collapsePassed">
+          Passées
+        </a>
+      </div>
     </div>
-  <% else %>
-    <div class="card border-0 mb-3 p-4 rounded">
-      <h6 class="mb-0 text-center">Vos réservations en cours</h6>
-    </div>
-    <% @ongoing_reservations.each do |reservation| %>
-      <div class="card border-0 mb-3 rounded w-100">
-        <div class="row g-0">
-          <div class="col-md-5">
-          <%= link_to planet_path(reservation.planet) do %>
-            <%= cl_image_tag reservation.planet.photo.key, height: 400, width: 800, crop: :scale, class: 'img-fluid h-100 img-cover rounded-start' %>
-          <% end %>
-          </div>
-          <div class="col-md-7 p-4">
-            <h4 class="mb-3 ps-3">Votre réservation pour <%= reservation.planet.name %></h4>
-            <div>
+  </div>
+  <div class="collapse show" id="collapseOngoing">
+    <% if @ongoing_reservations.empty? %>
+      <div class="card border-0 mb-3 p-4 rounded w-100">
+        <p class="mb-0 text-center">Aucune réservation en cours</p>
+      </div>
+    <% else %>
+      <% @ongoing_reservations.each do |reservation| %>
+        <div class="card border-0 mb-3 rounded w-100">
+          <div class="row g-0">
+            <div class="col-md-4">
+              <%= cl_image_tag reservation.planet.photo.key, crop: :scale, class: 'img-fluid rounded-start h-100 img-cover' %>
+            </div>
+            <div class="col-md-8 p-4">
+              <h4 class="mb-3 ps-3">Réservation pour <%= reservation.planet.name %></h4>
               <div class="d-flex">
                 <div class="ps-3 w-50 mb-3">
                   <strong>Date de début</strong>
@@ -41,8 +51,8 @@
               </div>
               <div class="d-flex">
                 <div class="ps-3 w-50 mb-0">
-                  <strong>Réservation au nom de</strong>
-                  <p><%= reservation.user.email %></p>
+                  <strong>Réservation de</strong>
+                  <p><%= cl_image_tag reservation.user.avatar.key, width: 25, height: 25, crop: :scale, class: 'rounded-circle me-2' %><%= reservation.user.email %></p>
                 </div>
                 <div class="pe-3 w-50 mb-0">
                   <strong>Prix</strong>
@@ -52,29 +62,23 @@
             </div>
           </div>
         </div>
-      </div>
+      <% end %>
     <% end %>
-  <% end %>
-  <% if @coming_reservations.empty? %>
-    <div class="card border-0 mb-3 p-4 rounded">
-      <h6 class="mb-3 text-center">Vos réservations à venir</h6>
-      <p class="mb-0 text-center">Aucune réservation à venir</p>
-    </div>
-  <% else %>
-    <div class="card border-0 mb-3 p-4 rounded">
-      <h6 class="mb-0 text-center">Vos réservations à venir</h6>
-    </div>
-    <% @coming_reservations.each do |reservation| %>
-      <div class="card border-0 mb-3 rounded w-100">
-        <div class="row g-0">
-          <div class="col-md-5">
-          <%= link_to planet_path(reservation.planet) do %>
-            <%= cl_image_tag reservation.planet.photo.key, height: 400, width: 800, crop: :scale, class: 'img-fluid h-100 img-cover rounded-start' %>
-          <% end %>
-          </div>
-          <div class="col-md-7 p-4">
-            <h4 class="mb-3 ps-3">Votre réservation pour <%= reservation.planet.name %></h4>
-            <div>
+  </div>
+  <div class="collapse" id="collapseComing">
+    <% if @coming_reservations.empty? %>
+      <div class="card border-0 mb-3 p-4 rounded w-100">
+        <p class="mb-0 text-center">Aucune réservation en cours</p>
+      </div>
+    <% else %>
+      <% @coming_reservations.each do |reservation| %>
+        <div class="card border-0 mb-3 rounded w-100">
+          <div class="row g-0">
+            <div class="col-md-4">
+              <%= cl_image_tag reservation.planet.photo.key, crop: :scale, class: 'img-fluid rounded-start h-100 img-cover' %>
+            </div>
+            <div class="col-md-8 p-4">
+              <h4 class="mb-3 ps-3">Réservation pour <%= reservation.planet.name %></h4>
               <div class="d-flex">
                 <div class="ps-3 w-50 mb-3">
                   <strong>Date de début</strong>
@@ -97,8 +101,8 @@
               </div>
               <div class="d-flex">
                 <div class="ps-3 w-50 mb-0">
-                  <strong>Réservation au nom de</strong>
-                  <p><%= reservation.user.email %></p>
+                  <strong>Réservation de</strong>
+                  <p><%= cl_image_tag reservation.user.avatar.key, width: 25, height: 25, crop: :scale, class: 'rounded-circle me-2' %><%= reservation.user.email %></p>
                 </div>
                 <div class="pe-3 w-50 mb-0">
                   <strong>Prix</strong>
@@ -108,29 +112,23 @@
             </div>
           </div>
         </div>
-      </div>
+      <% end %>
     <% end %>
-  <% end %>
-  <% if @passed_reservations.empty? %>
-    <div class="card border-0 mb-3 p-4 rounded">
-      <h6 class="mb-3 text-center">Vos réservations passées</h6>
-      <p class="mb-0 text-center">Aucune réservation passée</p>
-    </div>
-  <% else %>
-    <div class="card border-0 mb-3 p-4 rounded">
-      <h6 class="mb-0 text-center">Vos réservations passées</h6>
-    </div>
-    <% @passed_reservations.each do |reservation| %>
-      <div class="card border-0 mb-3 rounded w-100">
-        <div class="row g-0">
-          <div class="col-md-5">
-          <%= link_to planet_path(reservation.planet) do %>
-            <%= cl_image_tag reservation.planet.photo.key, height: 400, width: 800, crop: :scale, class: 'img-fluid h-100 img-cover rounded-start' %>
-          <% end %>
-          </div>
-          <div class="col-md-7 p-4">
-            <h4 class="mb-3 ps-3">Votre réservation pour <%= reservation.planet.name %></h4>
-            <div>
+  </div>
+  <div class="collapse" id="collapsePassed">
+    <% if @passed_reservations.empty? %>
+      <div class="card border-0 mb-3 p-4 rounded w-100">
+        <p class="mb-0 text-center">Aucune réservation en cours</p>
+      </div>
+    <% else %>
+      <% @passed_reservations.each do |reservation| %>
+        <div class="card border-0 mb-3 rounded w-100">
+          <div class="row g-0">
+            <div class="col-md-4">
+              <%= cl_image_tag reservation.planet.photo.key, crop: :scale, class: 'img-fluid rounded-start h-100 img-cover' %>
+            </div>
+            <div class="col-md-8 p-4">
+              <h4 class="mb-3 ps-3">Réservation pour <%= reservation.planet.name %></h4>
               <div class="d-flex">
                 <div class="ps-3 w-50 mb-3">
                   <strong>Date de début</strong>
@@ -153,8 +151,8 @@
               </div>
               <div class="d-flex">
                 <div class="ps-3 w-50 mb-0">
-                  <strong>Réservation au nom de</strong>
-                  <p><%= reservation.user.email %></p>
+                  <strong>Réservation de</strong>
+                  <p><%= cl_image_tag reservation.user.avatar.key, width: 25, height: 25, crop: :scale, class: 'rounded-circle me-2' %><%= reservation.user.email %></p>
                 </div>
                 <div class="pe-3 w-50 mb-0">
                   <strong>Prix</strong>
@@ -164,7 +162,7 @@
             </div>
           </div>
         </div>
-      </div>
+      <% end %>
     <% end %>
-  <% end %>
+  </div>
 </div>
