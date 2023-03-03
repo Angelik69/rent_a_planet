@@ -3,7 +3,9 @@
     <div class="col-6">
       <% @planets.each do |planet| %>
         <div class="card border-0 mb-4 rounded w-100">
-          <%= cl_image_tag planet.photo.key, crop: :scale, class: 'card-img-top img-cover' %>
+          <%= link_to planet_path(planet) do %>
+            <%= cl_image_tag planet.photo.key, crop: :scale, class: 'card-img-top img-cover' %>
+          <% end %>
           <div class="card-body p-4">
             <div class="d-flex justify-content-between align-items-baseline pb-3">
                 <h3 class="card-title"><%= planet.name %></h5>
@@ -34,7 +36,7 @@
                   <%= link_to "Editer", edit_planet_path(planet), class: "nav-link text-light" %>
                 </button>
                 <button type="button" class="btn btn-danger d-flex align-items-center border-0 rounded">
-                  <%= link_to "Effacer", planet_path(planet), data: {turbo_method: :delete, turbo_confirm: "Are you sure?"}, class: "nav-link text-light" %>
+                  <%= link_to "Effacer", planet_path(planet), data: {turbo_method: :delete, turbo_confirm: "Êtes-vous sûr de vouloir détruire cette planète ?"}, class: "nav-link text-light" %>
                 </button>
               </div>
             </div>
@@ -93,7 +95,7 @@
                 </div>
                 <div class="pe-3 w-50 mb-0">
                   <strong>Prix</strong>
-                  <p><%= number_with_delimiter((reservation.planet.price_per_night * (reservation.end_date - reservation.start_date)).to_i, :delimiter => ' ') %> €</p>
+                  <p><%= number_with_delimiter((((reservation.planet.price_per_night * (reservation.end_date - reservation.start_date)).to_i) + 150_000), :delimiter => ' ') %> €</p>
                 </div>
               </div>
             </div>
@@ -136,7 +138,7 @@
                 </div>
                 <div class="pe-3 w-50 mb-0">
                   <strong>Prix</strong>
-                  <p><%= number_with_delimiter((reservation.planet.price_per_night * (reservation.end_date - reservation.start_date)).to_i, :delimiter => ' ') %> €</p>
+                  <p><%= number_with_delimiter((((reservation.planet.price_per_night * (reservation.end_date - reservation.start_date)).to_i) + 150_000), :delimiter => ' ') %> €</p>
                 </div>
               </div>
             </div>
@@ -179,7 +181,7 @@
                 </div>
                 <div class="pe-3 w-50 mb-0">
                   <strong>Prix</strong>
-                  <p><%= number_with_delimiter((reservation.planet.price_per_night * (reservation.end_date - reservation.start_date)).to_i, :delimiter => ' ') %> €</p>
+                  <p><%= number_with_delimiter((((reservation.planet.price_per_night * (reservation.end_date - reservation.start_date)).to_i) + 150_000), :delimiter => ' ') %> €</p>
                 </div>
               </div>
             </div>
