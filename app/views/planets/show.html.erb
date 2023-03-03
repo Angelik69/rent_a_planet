@@ -3,8 +3,22 @@
     <div class="col-8">
       <%= render 'planets/card_detailed' %>
     </div>
-    <div class="col-4">
-      <%= render 'planets/booking' %>
-    </div>
+    <% if @planet.user.id == current_user.id %>
+      <div class="col-4">
+        <div class="card border-0 mb-3 p-4 rounded text-center">
+          <h6 class="mb-4">Réservation</h6>
+          <p class="mb-4">Malheureusement, vous ne pouvez pas faire de réservation sur votre planète.</p>
+          <div class="d-flex justify-content-center">
+            <button type="button" class="btn btn-booking border-0 rounded w-50">
+              <%= link_to "Voir mes planètes", user_planets_path, class: "nav-link text-light" %>
+            </button>
+          </div>
+        </div>
+      </div>
+    <% else %>
+      <div class="col-4">
+        <%= render 'planets/booking' %>
+      </div>
+    <% end %>
   </div>
 </div>
