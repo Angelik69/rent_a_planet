@@ -5,13 +5,11 @@ class PlanetsController < ApplicationController
   before_action :set_planet, only: %i[show edit update destroy]
 
   def index
-    @planets = Planet.all
-    @planets = @planets.reject { |planet| planet.user == current_user } if user_signed_in?
+    @planets = Planet.all.reject { |planet| planet.user == current_user }
+    console
   end
 
-  def landing
-
-  end
+  def landing; end
 
   def new
     @planet = Planet.new
