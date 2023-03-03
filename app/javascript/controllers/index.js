@@ -9,3 +9,6 @@ application.register("hello", HelloController)
 
 import PriceController from "./price_controller"
 application.register("price", PriceController)
+
+import TypedJsController from "./typed_js_controller"
+application.register("typed_js", TypedJsController)
